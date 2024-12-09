@@ -4,9 +4,9 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register'),
-    path('login/', CustomLoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    # path('register/', RegisterView.as_view(), name='register'),
+    # path('login/', CustomLoginView.as_view(), name='login'),
+    # path('logout/', LogoutView.as_view(), name='logout'),
 
 
     path('', ProductListViewSet.as_view({'get': 'list',
@@ -44,3 +44,4 @@ urlpatterns = [
                                                     'put': 'update',
                                                     'delete': 'destroy'}), name='review_detail'),
 ]
+
