@@ -162,4 +162,4 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ('Bearer',),
 }
 
-# AUTH_USER_MODEL = 'shop.UserProfile'
+AUTH_USER_MODEL = 'shop.UserProfile'

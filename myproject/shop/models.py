@@ -1,12 +1,11 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class UserProfile(models.Model):
-    first_name = models.CharField(max_length=32)
-    last_name = models.CharField(max_length=32)
-    age = models.PositiveSmallIntegerField()
-    phone = models.IntegerField()
-    email = models.EmailField()
+class UserProfile(AbstractUser):
+    age = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    phone = models.IntegerField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
     user_image = models.ImageField(upload_to='user_image/', null=True, blank=True)
     STATUS_CHOICES = (
         ('gold', 'gold'),
