@@ -54,6 +54,7 @@ class UserProfileListSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ['first_name', 'last_name']
 
+
 class UserProfileDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
@@ -105,14 +106,12 @@ class ProductListSerializer(serializers.ModelSerializer):
         return obj.get_count_people()
 
 
-
 class CategorySerializer(serializers.ModelSerializer):
     products = ProductListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Category
         fields = ['category_name', 'products']
-
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -123,8 +122,28 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     ratings = RatingSerializer(many=True, read_only=True)
     reviews = ReviewSerializer(many=True, read_only=True)
 
-
     class Meta:
         model = Product
         fields = ['product_name', 'category', 'description', 'check_original',
                   'product_video', 'photos', 'price', 'owner', 'created_date', 'ratings', 'reviews']
+
+
+class CartItemSerializer(serializers.ModelSerializer):
+    product = ProductListSerializer(read_only=True)
+    product_id = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(), write_only=True, source='product')
+
+    class Meta:
+        model = CarItem
+        fields = ['id', 'product', 'product_id', 'quantity', 'get_total_price']
+
+
+class CartSerializer(serializers.ModelSerializer):
+    items = CartItemSerializer(many=True, read_only=True)
+    total_price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Cart
+        fields = ['id', 'user', 'items', 'total_price']
+
+    def get_total_price(self, obj):
+        return obj.get_total_price()
