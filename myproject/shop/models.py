@@ -8,7 +8,7 @@ class UserProfile(AbstractUser):
     age = models.PositiveSmallIntegerField(default=0, null=True, blank=True,
                                            validators=[MinValueValidator(15), MaxValueValidator(110)])
     phone = PhoneNumberField(null=True, blank=True, region='KG')
-    email = models.EmailField(null=True, blank=True)
+    # email = models.EmailField(null=True, blank=True)
     user_image = models.ImageField(upload_to='user_image/', null=True, blank=True)
     STATUS_CHOICES = (
         ('gold', 'gold'),
